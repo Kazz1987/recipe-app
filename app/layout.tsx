@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "AIレシピ | 食材からレシピを検索するWEBアプリ",
+  title: "AIレシピ",
   description: "食材を入力するとAIがレシピを提案してくれるWEBアプリ",
 }
 
