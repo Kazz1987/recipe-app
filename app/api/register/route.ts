@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import bcrypt from "bcryptjs"
-import { Prisma } from "@prisma/client"
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const MIN_PASSWORD_LENGTH = 8
@@ -64,10 +63,9 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: "登録完了", userId: user.id })
   } catch (error) {
-    // findUnique と create の間の競合（同時登録）による一意制約違反
     if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === "P2002"
+      error instanceof Error &&
+      error.message.includes("P2002")
     ) {
       return NextResponse.json(
         { error: "このメールアドレスはすでに登録されています" },
